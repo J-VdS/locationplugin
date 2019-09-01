@@ -25,11 +25,13 @@ public class LocationPlugin extends Plugin{
 
         handler.<Player>register("tp_list", "", "Tp to this player by ID.", (args, player)->{
             int ID = 1;
+
             for (Player p: Vars.playerGroup.all()){
 
                 player.sendMessage("[accent]"+ID+":[] "+p.name);
                 ID++;
             }
+            player.sendMessage("You can use [accent]/tp_id <id>[] to teleport to a player using the number next to their name.");
         });
 
         handler.<Player>register("tp_id", "<ID>", "Tp to this player by ID.", (args, player)->{
@@ -37,12 +39,14 @@ public class LocationPlugin extends Plugin{
                int ID = Integer.parseInt(args[0]);
                Player other = Vars.playerGroup.all().get(ID-1);
                player.sendMessage("teleported to " + other.name);
-               player.setNet(other.x-100, other.y);
-               //player.set(other.x-100, other.y);
+               if (player.isLocal){
+                   player.setNet(other.x-100, other.y);
+                   player.set(other.x-100, other.y);
+               }
+               Call.onPositionSet(player.con.id, other.x-100, other.y);
            } catch (Exception e){
                player.sendMessage("[scarlet] invalid ID");
-            }
-
+           }
         });
 
         handler.<Player>register("tp_name", "<player>", "Tp to this player.", (args, player)->{
@@ -53,8 +57,11 @@ public class LocationPlugin extends Plugin{
                 player.sendMessage("[scarlet]No player by that name found![]\nMaybe you could try tp_id and tp_list");
                 return;
             }
-            player.setNet(other.x-100, other.y); //works if strict is on
-            player.set(other.x-100, other.y); //works if strict is on
+            Call.onPositionSet(player.con.id, other.x-100, other.y);
+            if (player.isLocal) {
+                player.setNet(other.x - 100, other.y);
+                player.set(other.x - 100, other.y);
+            }
             player.sendMessage("teleported to " + other.name);
 
         });
@@ -63,8 +70,7 @@ public class LocationPlugin extends Plugin{
             try{
                 int x = Integer.parseInt(args[0])*8;
                 int y = Integer.parseInt(args[1])*8;
-                player.set((float)x, (float)y);
-                player.setNet((float)x,(float)y);
+                Call.onPositionSet(player.con.id, (float)x, (float)y);
             } catch (Exception e){
                 player.sendMessage("[scarlet] x and y are integers!");
             }
@@ -76,13 +82,15 @@ public class LocationPlugin extends Plugin{
 
         //for testing
         handler.<Player>register("test", "", "For testing only", (args, player)->{
+            if (!player.isAdmin){
+                return;
+            }
             Class c = Player.class;
             // get list of methods
             Method[] methods = c.getMethods();
 
             // get the name of every method present in the list
             for (Method method : methods) {
-
                 String MethodName = method.getName();
                 System.out.println(MethodName);
             };

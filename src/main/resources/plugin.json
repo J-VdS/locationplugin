@@ -2,6 +2,6 @@
   "name": "LocationPlugin",
   "author": "Fishbuilder",
   "main": "location.LocationPlugin",
-  "description": "test",
-  "version": 1.0
+  "description": "A plugin that allows teleportation to certain coords and players. Works with strict on and off.",
+  "version": 1.1
 }
