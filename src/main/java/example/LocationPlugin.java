@@ -23,13 +23,33 @@ public class LocationPlugin extends Plugin{
     @Override
     public void registerClientCommands(CommandHandler handler){
 
-        handler.<Player>register("tp", "<player>", "Tp to this player.", (args, player)->{
-            //find player by name
+        handler.<Player>register("tp_list", "", "Tp to this player by ID.", (args, player)->{
+            int ID = 1;
+            for (Player p: Vars.playerGroup.all()){
+
+                player.sendMessage("[accent]"+ID+":[] "+p.name);
+                ID++;
+            }
+        });
+
+        handler.<Player>register("tp_id", "<ID>", "Tp to this player by ID.", (args, player)->{
+           try{
+               int ID = Integer.parseInt(args[0]);
+               Player other = Vars.playerGroup.all().get(ID-1);
+               player.sendMessage("teleported to " + other.name);
+               player.setNet(other.x, other.y);
+           } catch (Exception e){
+               player.sendMessage("[scarlet] invalid ID");
+            }
+
+        });
+
+        handler.<Player>register("tp_name", "<player>", "Tp to this player.", (args, player)->{
             Player other = Vars.playerGroup.find(p->p.name.equalsIgnoreCase(args[0]));
 
             //give error message with scarlet-colored text if player isn't found
             if(other == null) {
-                player.sendMessage("[scarlet]No player by that name found!");
+                player.sendMessage("[scarlet]No player by that name found![]\nMaybe you could try tp_id and tp_list");
                 return;
             }
             player.sendMessage("teleported to " + other.name);
