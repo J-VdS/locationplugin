@@ -1,7 +1,7 @@
 {
-  "name": "ExamplePlugin",
-  "author": "Anuke",
-  "main": "example.ExamplePlugin",
-  "description": "A plugin to demonstrate some basic features.",
+  "name": "LocationPlugin",
+  "author": "Fishbuilder",
+  "main": "location.LocationPlugin",
+  "description": "test",
   "version": 1.0
 }
