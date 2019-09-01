@@ -37,7 +37,8 @@ public class LocationPlugin extends Plugin{
                int ID = Integer.parseInt(args[0]);
                Player other = Vars.playerGroup.all().get(ID-1);
                player.sendMessage("teleported to " + other.name);
-               player.setNet(other.x, other.y);
+               player.setNet(other.x-30, other.y);
+               player.set(other.x-30, other.y);
            } catch (Exception e){
                player.sendMessage("[scarlet] invalid ID");
             }
@@ -52,8 +53,10 @@ public class LocationPlugin extends Plugin{
                 player.sendMessage("[scarlet]No player by that name found![]\nMaybe you could try tp_id and tp_list");
                 return;
             }
+            player.setNet(other.x-30, other.y);
+            player.set(other.x-30, other.y);
             player.sendMessage("teleported to " + other.name);
-            player.setNet(other.x, other.y);
+
         });
 
         handler.<Player>register("loc", "", "My location", (args, player)->{
