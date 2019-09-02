@@ -39,11 +39,11 @@ public class LocationPlugin extends Plugin{
                int ID = Integer.parseInt(args[0]);
                Player other = Vars.playerGroup.all().get(ID-1);
                player.sendMessage("teleported to " + other.name);
-               if (player.isLocal){
-                   player.setNet(other.x-100, other.y);
-                   player.set(other.x-100, other.y);
-               }
-               Call.onPositionSet(player.con.id, other.x-100, other.y);
+               //strict on
+               player.setNet(other.x-50, other.y);
+               player.set(other.x-50, other.y);
+               //strict off
+               Call.onPositionSet(player.con.id, other.x-50, other.y);
            } catch (Exception e){
                player.sendMessage("[scarlet] invalid ID");
            }
@@ -57,11 +57,12 @@ public class LocationPlugin extends Plugin{
                 player.sendMessage("[scarlet]No player by that name found![]\nMaybe you could try tp_id and tp_list");
                 return;
             }
-            Call.onPositionSet(player.con.id, other.x-100, other.y);
-            if (player.isLocal) {
-                player.setNet(other.x - 100, other.y);
-                player.set(other.x - 100, other.y);
-            }
+            //strict off
+            Call.onPositionSet(player.con.id, other.x-50, other.y);
+            //strict on
+            player.setNet(other.x - 50, other.y);
+            player.set(other.x - 50, other.y);
+
             player.sendMessage("teleported to " + other.name);
 
         });
@@ -70,7 +71,12 @@ public class LocationPlugin extends Plugin{
             try{
                 int x = Integer.parseInt(args[0])*8;
                 int y = Integer.parseInt(args[1])*8;
+                //strict off
                 Call.onPositionSet(player.con.id, (float)x, (float)y);
+                //strict on + local
+                player.setNet((float)x, (float)y);
+                player.set((float)x, (float)y);
+
             } catch (Exception e){
                 player.sendMessage("[scarlet] x and y are integers!");
             }
