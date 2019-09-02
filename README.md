@@ -6,9 +6,9 @@
 * `/tp_co <x> <y>` teleport to a location in block units
 
 ### future
-[ ] add a cooldown
-[ ] teamonly during pvp
-[ ] tp to closest core
+* [ ] add a cooldown
+* [ ] teamonly during pvp
+* [ ] tp to closest core
 
 ### Building a Jar *(without dependencies)*
 
