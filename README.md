@@ -1,15 +1,14 @@
-### Setup
+### implemented commands
+* `/tp_list` shows the tp ID of players 
+* `/tp_id <id>` teleport to a player by id (/tp_list)
+* `/tp_name <name>` teleport to a player by name
+* `/loc` your current location in block units
+* `/tp_co <x> <y>` teleport to a location in block units
 
-Clone this repository first.
-To edit the plugin display name and other data, take a look at `src/main.resources/plugin.json`.
-Edit the name of the project itself by going into `settings.gradle`.
-
-### Basic Usage
-
-See `src/main/java/example/ExamplePlugin.java` for some basic commands and event handlers.  
-Every main plugin class must extend `Plugin`. Make sure that `plugin.json` points to the correct main plugin class.
-
-Please note that the plugin system is in **early alpha**, and is subject to major changes.
+### future
+[ ] add a cooldown
+[ ] teamonly during pvp
+[ ] tp to closest core
 
 ### Building a Jar *(without dependencies)*
 
