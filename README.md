@@ -5,7 +5,7 @@
 * `/loc` your current location in block units
 * `/tp_co <x> <y>` teleport to a location in block units
 
-### future
+### todo
 * [ ] add a cooldown
 * [ ] teamonly during pvp
 * [ ] tp to closest core
